@@ -20,7 +20,7 @@
     <body>
 
 
-        <nav class="cf">
+        <nav id="main-nav" class="cf">
         	<div id="logo">
 				<!-- Generator: Adobe Illustrator 18.0.0, SVG Export Plug-In  -->
 				<svg version="1.1"
@@ -50,41 +50,42 @@
 		        </div>
 
 	        	<ul id="client-list">
-	        		<li class='client-list-item'>Ink</li>
-	        		<li class='client-list-item'>Polycom</li>
-	        		<li class='client-list-item'>Marmalade</li>
-	        		<li class='client-list-item'>Panasonic</li>
-	        		<li class='client-list-item'>Intel</li>
-	        		<li class='client-list-item'>Fico</li>
+	        		<li data-url="ink" class='client-list-item'>Ink</li>
+	        		<li data-url="polycom" class='client-list-item'>Polycom</li>
+	        		<li data-url="marmalade" class='client-list-item'>Marmalade</li>
+	        		<li data-url="panasonic" class='client-list-item'>Panasonic</li>
+	        		<li data-url="intel" class='client-list-item'>Intel</li>
+	        		<li data-url="fico" class='client-list-item'>Fico</li>
 	        	</ul>
 
 	        </div>
-	        <div id="image-nav">
-	        	<div id="left-arrow" class="arrow">
-		        	<div class="arrow-line"></div>
-		        </div>
-		        <div id="right-arrow" class="arrow">
-		        	<div class="arrow-line"></div>
-		        </div>
-	        </div>
         </nav>
-
-        <section id="client-title">
-        	<h4>Client / Project</h4>
-        	<h1>Marmalade / Project Title</h1>
-        </section>
-        <section id="image-wrap">
-        	<div id="image-inner-wrap">
-	        	<img class="project-item" src="https://m1.behance.net/rendition/modules/159185859/hd/e73f3ac14e59899ad4488cfad44a5af8.jpg">
-	        	<img class="project-item" src="https://m1.behance.net/rendition/modules/159183497/hd/d93ad4f39d67c0627e33e88ac4a417c6.jpg">
-	        	<img class="project-item" src="https://m1.behance.net/rendition/modules/159183473/hd/6397ae0edc996e6db3e85e824b21e79e.jpg">
-	        </div>
-        </section>
+        <article id="ajax-wrapper">
+	        <section id="client-title">
+	        	<h4>Client / Project</h4>
+	        	<h1>Ink / Landing Pages</h1>
+	        	<nav id="project-nav">
+	        		<ul>
+		        	</ul>
+	        	</nav>
+	        </section>
+	        <section id="image-wrap">
+	        	<div id="image-inner-wrap">
+	        		<div class="project-item active" style="background-image: url('https://m1.behance.net/rendition/modules/159185859/hd/e73f3ac14e59899ad4488cfad44a5af8.jpg')">
+		        	</div>
+		        	<div class="project-item" style="background-image: url('https://m1.behance.net/rendition/modules/159183497/hd/d93ad4f39d67c0627e33e88ac4a417c6.jpg')">
+		        	</div>
+		        	<div class="project-item" style="background-image: url('https://m1.behance.net/rendition/modules/159183473/hd/6397ae0edc996e6db3e85e824b21e79e.jpg')">
+		        	</div>
+		        </div>
+	        </section>
+	    </article>
 
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
 		<script src="js/vendor/jquery.appear.js"></script>
+		<script src="js/vendor/jquery.transit.js"></script>
 		<script src="js/vendor/jquery.touchSwipe.min.js"></script>
         <script src="js/main.js"></script>
     </body>

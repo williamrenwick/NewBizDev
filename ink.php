@@ -1,0 +1,18 @@
+<section id="client-title">
+	<h4>Client / Project</h4>
+	<h1>Ink / Landing Pages</h1>
+	<nav id="project-nav">
+		<ul>
+    	</ul>
+	</nav>
+</section>
+<section id="image-wrap">
+	<div id="image-inner-wrap">
+		<div class="project-item active" style="background-image: url('https://m1.behance.net/rendition/modules/159185859/hd/e73f3ac14e59899ad4488cfad44a5af8.jpg')">
+    	</div>
+    	<div class="project-item" style="background-image: url('https://m1.behance.net/rendition/modules/159183497/hd/d93ad4f39d67c0627e33e88ac4a417c6.jpg')">
+    	</div>
+    	<div class="project-item" style="background-image: url('https://m1.behance.net/rendition/modules/159183473/hd/6397ae0edc996e6db3e85e824b21e79e.jpg')">
+    	</div>
+    </div>
+</section>

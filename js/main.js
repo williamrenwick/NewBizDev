@@ -4,6 +4,7 @@ $(window).load(function() {
 	var nav = function() {
 		var $menubtn = $('#menu-static-wrap'),
 			$body = $('body'),
+			$li = $('.client-list-item'),
 			liDelay = 70,
 			clicked = false;
 
@@ -16,24 +17,41 @@ $(window).load(function() {
 				$(this).addClass('active');
 				createBG();
 				listItemIn();
+				imageSlider.destroyEvents();
 
 				clicked = true;
 			} else {
-				console.log('close')
+
 				list.delay(400).fadeOut(200);
 
 				$(this).removeClass('active');
 				destroyBG();
 				listItemOut();
+				imageSlider.enableEvents();
 
 				clicked = false;
 			}
 		})	
 
-		function listItemIn() {
-			var li = $('.client-list-item');
+		$li.on('click', function() {
+			var url = $(this).data('url') + '.html';
+			//animate out
 
-			li.each(function(index) {
+			//ajax call
+			$.ajax({
+			  url: url,
+			  isLocal: true,
+			  context: document.body
+			}).done(function() {
+			  //animate
+			  console.log('done')
+			});
+
+		});
+
+		function listItemIn() {
+
+			$li.each(function(index) {
 				var $this = $(this),
 					moveIn = function() {
 						$this.addClass('animIn')
@@ -43,17 +61,14 @@ $(window).load(function() {
 			})
 		}
 		function listItemOut() {
-			var li = $('.client-list-item');
 
-			li.each(function(index) {
+			$li.each(function(index) {
 				var $this = $(this),
 					moveOut = function() {
 						$this.removeClass('animIn');
 					};
 				setTimeout( moveOut, index * liDelay )
 			})
-
-
 		}
 		function createBG() {
 			var cover = '<div id="menu-bg"></div>';
@@ -68,8 +83,6 @@ $(window).load(function() {
 			var bg = $('#menu-bg'),
 				menuAnimTime = $('.client-list-item').length * 70;
 
-			console.log(menuAnimTime)
-
 			function fade() {
 				bg.fadeOut(200, function() {
 					$(this).remove();
@@ -81,32 +94,27 @@ $(window).load(function() {
 	}();
 	var imageSlider = function() {
 		var $item = $('#image-inner-wrap .project-item'),
-			$innerWrap = $('#image-inner-wrap');
+			$innerWrap = $('#image-inner-wrap'),
+			$imageWrap = $('#image-wrap'),
+			$rightArrow = $('#right-arrow'),
+			$leftArrow = $('#left-arrow'),
+			$dots,
+			wrapW = $('#image-wrap').width(),
+			totalItemNum = $('.project-item').length;
 
-		function getWidth() {
-			var	width = 0;
 
-			$item.each(function() {
-				width += $(this).outerWidth(true);
-				console.log($(this).width())
-			});
-		
-			console.log(width);
 
-			return width;
-		}
 		function applyWidth() {
-			var width = getWidth();
 
-			console.log(width, typeof width);
-
+			$item.css({
+				width: wrapW
+			});
 			$innerWrap.css({
-				'width': width
+				width: totalItemNum * 100 + "%"
 			});
 		}
+		
 		function itemAppear() {
-			$item.appear();
-
 	        $(".project-item").appear() 
 
 	        $(document.body).on("appear", ".project-item", function() {
@@ -114,16 +122,116 @@ $(window).load(function() {
 	        })
 	       	$.force_appear()
 		}
-		function slideLeft() {
-			var lastImgW = 
+		function createDots() {
+			var dot = '<li class="dot"></li>',
+				ul = $('#project-nav ul');
 
-			$innerWrap.animate('left', lastImgW);
+			for (i=0; i < totalItemNum; i++) {
+				ul.append(dot);
+			}
+
+			$dots = $('.dot');
+			$dots.first().addClass('active');
+		}
+
+		function slideLeft(dotIndex) {
+			var $current = $('.project-item.active'),
+				next = $current.next();
+
+			if (next.length != 0) {
+
+				if (typeof dotIndex !== "undefined") {
+					$innerWrap.transition({
+						x: -(dotIndex * wrapW)
+					});
+					$item.eq(dotIndex).addClass('active');
+				} else {
+					$innerWrap.transition({
+						x: "-=" + wrapW
+					});
+
+					next.addClass('active');
+				}
+
+				$current.removeClass('active');
+				updateDots();
+			}
+		}
+		function slideRight(dotIndex) {
+			var $current = $('.project-item.active'),
+				prev = $current.prev();
+
+			if (prev.length !== 0) {
+
+				if (typeof dotIndex !== "undefined") {
+					$innerWrap.transition({
+						x: -(dotIndex * wrapW)
+					});
+					$item.eq(dotIndex).addClass('active');
+				} else {
+					$innerWrap.transition({
+						x: "+=" + wrapW
+					});
+					prev.addClass('active');
+				}
+				
+				$current.removeClass('active');
+				updateDots();
+			}
+		}
+		function updateDots() {
+			var currentProjIdx = $('.project-item.active').index(),
+				currentDot = $('.dot.active').removeClass('active');
+
+			$dots.eq(currentProjIdx).addClass('active');
+
+		}
+		function slideEvents() {
+
+			$imageWrap.swipe({
+				swipe: function(event, direction, distance, duration, fingerCount, fingerData) {
+					if (direction == 'right') {
+						slideRight();
+					} else if (direction == 'left') {
+						slideLeft();
+					}
+				}
+			});
+
+			$dots.on('click', function() {
+				var self = $(this),
+					$current = $('.dot.active'),
+					prevIndex = $current.index(),
+					newIndex = self.index();
+						
+
+				if (prevIndex < newIndex) {
+					slideLeft(newIndex);
+				} else if (prevIndex > newIndex) {
+					slideRight(newIndex);
+				}
+
+			});
+
+		}
+		function destroyEvents() {
+			$dots.off();
+			$imageWrap.swipe('destroy');
 		}
 		function slideInit() {
+			createDots();
 			itemAppear();
 			applyWidth();
-			
+			slideEvents();
 		}
 		slideInit();
+
+		return {
+			enableEvents: slideEvents,
+			destroyEvents: destroyEvents
+		}
 	}();
+
+
+
 })

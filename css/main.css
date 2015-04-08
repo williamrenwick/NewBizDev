@@ -107,7 +107,7 @@ body {
     background-color: rgba(255,255,255,0.9);
     z-index: 999;
 }
-nav {
+#main-nav {
     position: fixed;
     width: 100%;
     box-sizing: border-box;
@@ -119,7 +119,6 @@ nav {
     float: left;
     top: 0;
     width: 35px;
-    margin-right: 140px;
 }
 #logo svg path {
     stroke-width: 2;
@@ -128,6 +127,8 @@ nav {
     position: relative;
     float: left;
     top: 0;
+    left: 30%;
+    margin-left: -60px;
 }
 #menu-column h5 {
     margin: 0 0 0 40px;
@@ -158,28 +159,6 @@ nav {
     height: 3px;
     background-color: black;
     transform: rotate(45deg);
-}
-#image-nav {
-    position: absolute;
-    width: 100px;
-    height: 41px;
-    right: 60px;
-}
-#left-arrow {
-  position: absolute;
-  top: 50%;
-  margin-top: -10px;
-  left: 0;
-  cursor: pointer;
-  -webkit-transform: rotate(90deg);
-  transform: rotate(90deg);
-}
-#right-arrow {
-  position: absolute;
-  left: 86%;
-  cursor: pointer;
-  -webkit-transform: rotate(-90deg);
-  transform: rotate(-90deg);
 }
 .arrow-line:before {
     content: '';
@@ -242,12 +221,14 @@ nav {
     box-sizing: border-box;
     z-index: 10;
     overflow: hidden;
+    cursor: ew-resize;
 }
 .project-item {
     float: left;
     height: 100%;
-    margin-right: 60px;
-    opacity: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 1;
     -webkit-transform: translateX(200px);
     transform: translateX(200px);
     -webkit-transition: transform 0.25s .1s, opacity 0.3s;
@@ -279,10 +260,35 @@ nav {
     text-align: left;
 }
 #image-inner-wrap {
+    position: absolute;
     height: 100%;
+    -webkit-transition: all 0.4s cubic-bezier(.71,.03,.52,.98);
+    -moz-transition: all 0.4s cubic-bezier(.71,.03,.52,.98);
+    -o-transition: all 0.4s cubic-bezier(.71,.03,.52,.98);
+    -ms-transition: all 0.4s cubic-bezier(.71,.03,.52,.98);
+    transition: all 0.4s cubic-bezier(.71,.03,.52,.98);
 }
-
-
+#project-nav {
+    position: relative;
+    height: 10px;
+}
+#project-nav ul {
+    padding: 0;
+    list-style: none;
+}
+.dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 3px solid #cdcdcd;
+    cursor: pointer;
+}
+.dot.active {
+    border: 3px solid #000000;
+}
 
 
 
